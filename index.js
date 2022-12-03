@@ -11,7 +11,7 @@ const port = process.env.NODE_PORT;
 
 app.use(express.json())
 
-const {insertData, removeData} = require('./insertData')
+const {insertData, removeData, removeDataById} = require('./crud')
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -41,11 +41,25 @@ app.post('/remove', (req,res)=>{
 
     try{
         removeData(recipe)
-        res.send(recipe)
+        res.send("Removed recipe: " + recipe)
     }
     catch(e){
         console.log(e)
-        res.error(500)
+        res.status(400).send()
+    }
+})
+
+app.post('/removeid', (req,res)=>{
+    console.log(req.body)
+    let {id} = req.body
+
+    try{
+        removeDataById(id)
+        res.send("Removed id: "+id)
+    }
+    catch(e){
+        console.log(e)
+        res.status(400).send()
     }
 })
 
