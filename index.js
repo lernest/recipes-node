@@ -5,3 +5,51 @@ if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
 }
 
+const express = require('express');
+const app = express()
+const port = process.env.NODE_PORT;
+
+app.use(express.json())
+
+const {insertData, removeData} = require('./insertData')
+
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+app.post('/add', (req,res)=>{
+    console.log(req.body)
+    let {recipe, ingredients, directions} = req.body
+    let newRecipe = {
+        recipe,
+        ingredients,
+        directions
+    }
+    try{
+        insertData(newRecipe)
+        res.send(newRecipe)
+    }
+    catch(e){
+        console.log(e)
+        res.error(500)
+    }
+})
+
+app.post('/remove', (req,res)=>{
+    console.log(req.body)
+    let {recipe} = req.body
+
+    try{
+        removeData(recipe)
+        res.send(recipe)
+    }
+    catch(e){
+        console.log(e)
+        res.error(500)
+    }
+})
+
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
