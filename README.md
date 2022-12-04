@@ -1,3 +1,16 @@
+# Recipes
+
+This is the node backend for a project with the purpose of practicing docker and full stack programming. The front end (recipe-ui) is written in Vue. The backend connects to a postgres database. The database always runs in a container. The node backend can be run locally or from its container. The frontend is not yet containerized.
+
+The application handles simple GET and POST requests to write / read from a postgres database of recipes. Each recipe contains a name, ingredients, and directions. This can be easily extended to more complex applications.
+
+Next steps:
+- containerize the frontend
+- use docker-compose to orchestrate all three containers
+
+Challenges:
+- initializing and persisting data in the postgres container
+
 ## Start the node app
 
 `nodemon index.js`
