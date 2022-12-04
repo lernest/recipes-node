@@ -16,8 +16,6 @@ async function listAllData(){
       }
 }
 
-listAllData()
-
 /*
     Insert a new recipe into the database
 */
@@ -40,12 +38,18 @@ async function insertData({recipe, ingredients, directions}){
 */
 async function removeData(recipe){
     console.log(recipe)
-    try {
-        const res = await pool.query("SELECT * FROM recipes");
-        console.log(res.rows);
-      } catch (error) {
-        console.error(error);
-      }
+
+    try{
+        const res = await pool.query(
+            "DELETE FROM recipes WHERE recipe = $1",
+            [recipe]
+        );
+        console.log(res)
+        console.log(`Removed a recipe: ${recipe}`)
+    }
+    catch(e){
+        console.log(e)
+    }
 }
 
 /*

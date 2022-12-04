@@ -70,16 +70,6 @@ app.post('/removeid', (req,res)=>{
     }
 })
 
-
-// listAllData()
-
-// insertData({
-//     recipe: 'pear',
-//     ingredients: 'pear',
-//     directions: 'slice it up'
-// })
-
-
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
