@@ -11,7 +11,9 @@ Next steps:
 Challenges:
 - initializing and persisting data in the postgres container
 
-## Start the node app
+## Run the program
+
+### Start the node app
 
 `nodemon index.js`
 
@@ -23,17 +25,17 @@ or run it in a container using the Dockerfile:
 
 ---
 
-## Start a postgres container to connect to
+### Start a postgres container to connect to
 
 `docker run -e POSTGRES_PASSWORD=lol --name=pg --rm -d -p 5432:5432 postgres:14`
 
 ---
 
-## Connect to this database through pgAdmin
+### Connect to this database through pgAdmin
 
 Create a db called 'recipes'
 
-## Initialize the recipe table
+### Initialize the recipe table
 
 ```
 CREATE SEQUENCE public.recipes_id_seq
@@ -60,3 +62,7 @@ TABLESPACE pg_default;
 ALTER TABLE public.recipes
     OWNER to postgres;
 ```
+
+### Start up the ui
+
+From the 'recipes-ui' repo, run `npm run serve` and the UI will be accessible at localhost:8080
