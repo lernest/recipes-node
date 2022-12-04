@@ -2,6 +2,23 @@
 const { pool } = require('./db');
 
 /*
+    Read from database
+*/
+async function listAllData(){
+    console.log("Listing all data")
+    try {
+        const res = await pool.query("SELECT * FROM recipes");
+        console.log(res)
+        return res
+      } catch (e) {
+        console.error(e);
+        // return error
+      }
+}
+
+listAllData()
+
+/*
     Insert a new recipe into the database
 */
 async function insertData({recipe, ingredients, directions}){
@@ -23,18 +40,12 @@ async function insertData({recipe, ingredients, directions}){
 */
 async function removeData(recipe){
     console.log(recipe)
-
-    try{
-        const res = await pool.query(
-            "DELETE FROM recipes WHERE recipe = $1",
-            [recipe]
-        );
-        console.log(res)
-        console.log(`Removed a recipe: ${recipe}`)
-    }
-    catch(e){
-        console.log(e)
-    }
+    try {
+        const res = await pool.query("SELECT * FROM recipes");
+        console.log(res.rows);
+      } catch (error) {
+        console.error(error);
+      }
 }
 
 /*
@@ -56,4 +67,4 @@ async function removeDataById(recipe_id){
     }
 }
 
-module.exports = { insertData, removeData, removeDataById }
+module.exports = { insertData, removeData, removeDataById, listAllData }

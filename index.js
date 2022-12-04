@@ -1,4 +1,3 @@
-
 // don't use .env files in production
 // they should be set directly on the host machine
 if(process.env.NODE_ENV !== 'production'){
@@ -6,15 +5,23 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 const express = require('express');
+const cors = require('cors')
 const app = express()
 const port = process.env.NODE_PORT;
 
 app.use(express.json())
+app.use(cors())
 
-const {insertData, removeData, removeDataById} = require('./crud')
+const {insertData, removeData, removeDataById, listAllData} = require('./crud')
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
+})
+
+app.get('/recipes', async (req, res) => {
+    const data = await listAllData()
+    console.log(data)
+    res.send(data.rows)
 })
 
 app.post('/add', (req,res)=>{
@@ -62,6 +69,15 @@ app.post('/removeid', (req,res)=>{
         res.status(400).send()
     }
 })
+
+
+// listAllData()
+
+// insertData({
+//     recipe: 'pear',
+//     ingredients: 'pear',
+//     directions: 'slice it up'
+// })
 
 
 app.listen(port, () => {
