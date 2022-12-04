@@ -6,7 +6,6 @@ const { pool } = require('./db');
 */
 async function insertData({recipe, ingredients, directions}){
     console.log(recipe, ingredients, directions)
-
     try{
         const res = await pool.query(
             "INSERT INTO recipes (recipe, ingredients, directions) VALUES ($1, $2, $3)",
